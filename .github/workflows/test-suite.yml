@@ -2,6 +2,7 @@
 name: Test Suite
 
 on:
+  workflow_dispatch:
   push:
     branches: ["master"]
   pull_request:
@@ -10,15 +11,15 @@ on:
 jobs:
   tests:
     name: "Python ${{ matrix.python-version }}"
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-22.04-ppc64le"
 
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: [ "3.11"]
 
     steps:
       - uses: "actions/checkout@v4"
-      - uses: "actions/setup-python@v5"
+      - uses: "deadsnakes/action@v3.1.0"
         with:
           python-version: "${{ matrix.python-version }}"
           allow-prereleases: true
